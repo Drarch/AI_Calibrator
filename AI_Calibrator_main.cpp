@@ -1,7 +1,8 @@
 #include <iostream>
 #include <ctime>
 
-#include "source/ConsoleTextHelper.h"
+// #include "source/ConsoleTextHelper.h"
+#include "source/MessageConsolePrinter.h"
 
 char* correctnesMessage(bool isCorrect)
 {
@@ -13,62 +14,10 @@ char* correctnesMessage(bool isCorrect)
     return "incorrect";
 }
 
-void PrintIntroduction()
-{
-    std::cout << "Energy management AI developed some unwanted behaviour.\n";
-    std::cout << "You need to calibrate the AI in order for it to work properly.\n";
-    std::cout << "If you fail, our country will fall into darkness.\n";
-    std::cout << std::endl;
-    std::cout << "To calibrate the AI, you need to provide energy consumption, supply and storage for a given power grid.\n";
-    std::cout << "Provide one number for energy consumption, supply and storage (3 numbers).\n";
-}
-
-void PrintTutorial()
-{
-    std::cout << "Input correction for all 3 parameters using '";
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::RED);
-    std::cout <<"X X X";
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
-    std::cout << "' format.\n";
-}
-
-void PrintGridInfo(int Level, int EnergySum, int EnergyProduct)
-{
-    std::cout << "Grid " << Level << " has:\n";
-    std::cout << "+ Energy values between: ";
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::RED);
-    std::cout << Level << " - " << (Level * 2) + 1 << std::endl;
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
-    std::cout << "+ Sum of all energy in grid is: ";
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::RED);
-    std::cout << EnergySum << std::endl;
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
-    std::cout << "+ Multiply of all energy in grid is: ";
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::RED); 
-    std::cout << EnergyProduct << std::endl;
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
-}
-
-void PrintCheckMessage(bool isGridCorrect)
-{
-    if (isGridCorrect)
-    {
-        ConsoleTextHelper::SetTextColor(Consts::TextColor::GREEN);
-        std::cout << "The AI is calibrated!";
-    }
-    else
-    {
-        ConsoleTextHelper::SetTextColor(Consts::TextColor::RED);
-        std::cout << "The AI needs recalibrating! Try Again.";
-    }
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
-    std::cout << std::endl;
-}
-
 bool PlayGame(int Level)
 {
     std::cout << std::endl;
-    PrintTutorial();
+    MessageConsolePrinter::PrintTutorial();
 
     // Declare grid variables
     int EnergyConsumption = rand() % (Level + 2) + Level;
@@ -79,7 +28,7 @@ bool PlayGame(int Level)
     int EnergyProduct = EnergyConsumption * EnergySupply * EnergyStorage;
     
     // std::cout << "Debug: " << EnergyConsumption << " " << EnergySupply << " " << EnergyStorage << std::endl;
-    PrintGridInfo(Level, EnergySum, EnergyProduct);
+    MessageConsolePrinter::PrintGridInfo(Level, EnergySum, EnergyProduct);
 
     // Declare input variables
     int EnergyConsumptionInput = -1;
@@ -100,7 +49,7 @@ bool PlayGame(int Level)
     bool isGridCorrect = false;
     isGridCorrect = EnergySum == GuessSum && EnergyProduct == GuessProduct;
 
-    PrintCheckMessage(isGridCorrect);
+    MessageConsolePrinter::PrintGridResolution(isGridCorrect);
     system("pause");
     
     return isGridCorrect;
@@ -113,7 +62,7 @@ int main()
     int MaxLevel = 5;
 
     ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
-    PrintIntroduction();
+    MessageConsolePrinter::PrintIntroduction();
 
     while (Level <= MaxLevel)
     {

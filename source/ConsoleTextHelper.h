@@ -8,7 +8,7 @@
 class ConsoleTextHelper
 {
 private:
-    static HANDLE _hConsole;
+    // static HANDLE hConsole;
     // static HANDLE GetConsole();
 
 public:

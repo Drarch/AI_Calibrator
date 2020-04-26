@@ -2,7 +2,7 @@
 
 // HANDLE ConsoleTextHelper::GetConsole()
 // {
-//     if (hConsole == NULL)
+//     // if (hConsole == NULL)
 //         hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 //     return hConsole;
