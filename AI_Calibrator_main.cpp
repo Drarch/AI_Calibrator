@@ -1,21 +1,7 @@
 #include <iostream>
 #include <ctime>
-#include <windows.h>
 
-enum TextColor
-{
-    GREEN = 0x02,
-    RED = 0x04,
-    WHITE = 0x0f
-};
-
-void SetTextColor(TextColor TextColor)
-{
-    HANDLE hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    SetConsoleTextAttribute(hConsole, TextColor);
-}
+#include "source/ConsoleTextHelper.h"
 
 char* correctnesMessage(bool isCorrect)
 {
@@ -40,9 +26,9 @@ void PrintIntroduction()
 void PrintTutorial()
 {
     std::cout << "Input correction for all 3 parameters using '";
-    SetTextColor(TextColor::RED);
+    ConsoleTextHelper::SetTextColor(TextColor::RED);
     std::cout <<"X X X";
-    SetTextColor(TextColor::WHITE);
+    ConsoleTextHelper::SetTextColor(TextColor::WHITE);
     std::cout << "' format.\n";
 }
 
@@ -50,32 +36,32 @@ void PrintGridInfo(int Level, int EnergySum, int EnergyProduct)
 {
     std::cout << "Grid " << Level << " has:\n";
     std::cout << "+ Energy values between: ";
-    SetTextColor(TextColor::RED);
+    ConsoleTextHelper::SetTextColor(TextColor::RED);
     std::cout << Level << " - " << (Level * 2) + 1 << std::endl;
-    SetTextColor(TextColor::WHITE);
+    ConsoleTextHelper::SetTextColor(TextColor::WHITE);
     std::cout << "+ Sum of all energy in grid is: ";
-    SetTextColor(TextColor::RED);
+    ConsoleTextHelper::SetTextColor(TextColor::RED);
     std::cout << EnergySum << std::endl;
-    SetTextColor(TextColor::WHITE);
+    ConsoleTextHelper::SetTextColor(TextColor::WHITE);
     std::cout << "+ Multiply of all energy in grid is: ";
-    SetTextColor(TextColor::RED); 
+    ConsoleTextHelper::SetTextColor(TextColor::RED); 
     std::cout << EnergyProduct << std::endl;
-    SetTextColor(TextColor::WHITE);
+    ConsoleTextHelper::SetTextColor(TextColor::WHITE);
 }
 
 void PrintCheckMessage(bool isGridCorrect)
 {
     if (isGridCorrect)
     {
-        SetTextColor(TextColor::GREEN);
+        ConsoleTextHelper::SetTextColor(TextColor::GREEN);
         std::cout << "The AI is calibrated!";
     }
     else
     {
-        SetTextColor(TextColor::RED);
+        ConsoleTextHelper::SetTextColor(TextColor::RED);
         std::cout << "The AI needs recalibrating! Try Again.";
     }
-    SetTextColor(TextColor::WHITE);
+    ConsoleTextHelper::SetTextColor(TextColor::WHITE);
     std::cout << std::endl;
 }
 
@@ -126,7 +112,7 @@ int main()
     int Level = 1;
     int MaxLevel = 5;
 
-    SetTextColor(TextColor::WHITE);
+    ConsoleTextHelper::SetTextColor(TextColor::WHITE);
     PrintIntroduction();
 
     while (Level <= MaxLevel)
@@ -136,10 +122,10 @@ int main()
         std::cin.ignore();
     }
     
-    SetTextColor(TextColor::GREEN);
+    ConsoleTextHelper::SetTextColor(TextColor::GREEN);
     std::cout << "Congratulations!\n";
     std::cout << "Thanks to you, the AI works perfectly!\n";
-    SetTextColor(TextColor::WHITE);
+    ConsoleTextHelper::SetTextColor(TextColor::WHITE);
     system("pause");
     
     return 0;
