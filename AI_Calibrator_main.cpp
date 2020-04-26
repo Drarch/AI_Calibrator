@@ -61,7 +61,6 @@ int main()
     int Level = 1;
     int MaxLevel = 5;
 
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
     MessageConsolePrinter::PrintIntroduction();
 
     while (Level <= MaxLevel)
@@ -71,10 +70,7 @@ int main()
         std::cin.ignore();
     }
     
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::GREEN);
-    std::cout << "Congratulations!\n";
-    std::cout << "Thanks to you, the AI works perfectly!\n";
-    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
+    MessageConsolePrinter::PrintEndgame();
     system("pause");
     
     return 0;
