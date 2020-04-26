@@ -12,5 +12,5 @@ private:
     // static HANDLE GetConsole();
 
 public:
-    static void SetTextColor(TextColor TextColor);
+    static void SetTextColor(Consts::TextColor TextColor);
 };
