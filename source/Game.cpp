@@ -8,7 +8,7 @@ Game::Game(int _MaxLevel)
 }
 
 
-void Game::StartGame()
+void Game::NewGame()
 {
     srand(time(NULL));
     
@@ -16,7 +16,7 @@ void Game::StartGame()
 
     while (MaxLevel >= Level)
     {
-        if (this->PlayRound()) (*this).NextLevel();
+        if (this->PlayRound()) this->NextLevel();
         std::cin.clear();
         std::cin.ignore();
     }

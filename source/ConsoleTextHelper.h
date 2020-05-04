@@ -8,8 +8,7 @@
 class ConsoleTextHelper
 {
 private:
-    // static HANDLE hConsole;
-    // static HANDLE GetConsole();
+    static HANDLE GetConsole();
 
 public:
     static void SetTextColor(Consts::TextColor TextColor);

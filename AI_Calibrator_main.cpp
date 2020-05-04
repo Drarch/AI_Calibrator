@@ -7,8 +7,8 @@ int main()
     int MaxLevel = 5;
 
     Game game(MaxLevel);
-    game.StartGame();
-    
+    game.NewGame();
+
     system("pause");
     
     return 0;

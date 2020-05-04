@@ -12,7 +12,7 @@ private:
 public:
     Game(int _MaxLevel);
 
-    void StartGame();
+    void NewGame();
     bool PlayRound();
     int NextLevel();
 };
