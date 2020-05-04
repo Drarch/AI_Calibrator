@@ -1,5 +1,16 @@
 #include "MessageConsolePrinter.h"
 
+char* MessageConsolePrinter::CorrectnesMessage(bool isCorrect)
+{
+    if (isCorrect)
+    {
+        return "correct";
+    }
+
+    return "incorrect";
+}
+
+
 void MessageConsolePrinter::PrintIntroduction()
 {
     ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
@@ -39,9 +50,13 @@ void MessageConsolePrinter::PrintGridInfo(int Level, int EnergySum, int EnergyPr
     ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
 }
 
-void MessageConsolePrinter::PrintGridResolution(bool isGridCorrect)
+void MessageConsolePrinter::PrintGridResolution(bool isSumCorrect, bool isProductCorrect)
 {
-    if (isGridCorrect)
+    // Output guess message
+    std::cout << "Sum is " << CorrectnesMessage(isSumCorrect);
+    std::cout << " and multiply is " << CorrectnesMessage(isProductCorrect) << ".\n";
+
+    if (isSumCorrect && isProductCorrect)
     {
         ConsoleTextHelper::SetTextColor(Consts::TextColor::GREEN);
         std::cout << "The AI is calibrated!";
