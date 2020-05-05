@@ -3,14 +3,17 @@
 #include <ctime>
 #include <iostream>
 
+#include "Art\ArtPainter.h"
 #include "MessageConsolePrinter.h"
-#include "Console/ConsoleTextHelper.h"
+#include "Console\ConsoleTextHelper.h"
 
 class Game
 {
 private:
     int Level;
     int MaxLevel;
+
+    void DrawArt();
 
 public:
     Game(int _MaxLevel);

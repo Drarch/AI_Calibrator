@@ -15,6 +15,7 @@ void Game::NewGame()
     COORD TextStartPosition = {0, 17};
 
     ConsoleTextHelper::ClearScreen();
+    DrawArt();
     ConsoleTextHelper::SetCursorPosition(TextStartPosition);
     MessageConsolePrinter::PrintIntroduction();
 
@@ -22,6 +23,7 @@ void Game::NewGame()
     {
         if (this->PlayRound()) this->NextLevel();
         ConsoleTextHelper::ClearScreen();
+        DrawArt();
         ConsoleTextHelper::SetCursorPosition(TextStartPosition);
         std::cin.clear();
         std::cin.ignore();
@@ -64,6 +66,11 @@ bool Game::PlayRound()
     system("pause");
     
     return isSumCorrect && isProductCorrect;
+}
+
+void Game::DrawArt()
+{
+    ArtPainter::DrawAI();
 }
 
 int Game::NextLevel()
