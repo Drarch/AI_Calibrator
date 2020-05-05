@@ -14,6 +14,8 @@ private:
 
 public:
     static HANDLE GetConsole();
-    static void SetTextColor(Consts::TextColor TextColor);
     static void ClearScreen();
+    static void SetCursorPosition(COORD Position);
+    static void SetCursorPosition(short X, short Y);
+    static void SetTextColor(Consts::TextColor TextColor);
 };

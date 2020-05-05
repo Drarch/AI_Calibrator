@@ -11,6 +11,20 @@ void ConsoleTextHelper::SetTextColor(Consts::TextColor TextColor)
     SetConsoleTextAttribute(GetConsole(), TextColor);
 }
 
+
+void ConsoleTextHelper::SetCursorPosition(COORD Position)
+{
+    HANDLE hConsole = GetConsole();
+    SetConsoleCursorPosition(hConsole, Position);
+}
+
+void ConsoleTextHelper::SetCursorPosition(short X, short Y)
+{
+    COORD position = {X, Y};
+    SetCursorPosition(position);
+}
+
+
 void ConsoleTextHelper::ClearScreen()
 {
     COORD coordScreen = { 0, 0 };    /* here's where we'll home the

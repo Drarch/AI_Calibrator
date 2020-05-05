@@ -10,7 +10,7 @@ void ConsoleMarker::DrawRectangle(short LeftTopX, short LeftTopY, short Width, s
 {
     COORD LeftTop = { LeftTopX, LeftTopY };
 
-    ConsoleMarker::DrawRectangle(LeftTop, Width, Height, Color);
+    DrawRectangle(LeftTop, Width, Height, Color);
 }
 
 
@@ -31,7 +31,7 @@ void ConsoleMarker::FillRectangle(short LeftTopX, short LeftTopY, short Width, s
 {
     COORD LeftTop = { LeftTopX, LeftTopY };
 
-    ConsoleMarker::FillRectangle(LeftTop, Width, Height, Color);
+    FillRectangle(LeftTop, Width, Height, Color);
 }
 
 
@@ -75,7 +75,7 @@ void ConsoleMarker::DrawTextRectangle(short LeftTopX, short LeftTopY, short Widt
 {
     COORD LeftTop = { LeftTopX, LeftTopY };
 
-    ConsoleMarker::DrawTextRectangle(LeftTop, Width, Height, Color);
+    DrawTextRectangle(LeftTop, Width, Height, Color);
 }
 
 
@@ -97,5 +97,5 @@ void ConsoleMarker::FillTextRectangle(short LeftTopX, short LeftTopY, short Widt
 {
     COORD LeftTop = { LeftTopX, LeftTopY };
 
-    ConsoleMarker::FillTextRectangle(LeftTop, Width, Height, Color, Character);
+    FillTextRectangle(LeftTop, Width, Height, Color, Character);
 }

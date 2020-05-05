@@ -12,13 +12,17 @@ void Game::NewGame()
     srand(time(NULL));
     Level = 1;
 
+    COORD TextStartPosition = {0, 17};
+
     ConsoleTextHelper::ClearScreen();
+    ConsoleTextHelper::SetCursorPosition(TextStartPosition);
     MessageConsolePrinter::PrintIntroduction();
 
     while (MaxLevel >= Level)
     {
         if (this->PlayRound()) this->NextLevel();
         ConsoleTextHelper::ClearScreen();
+        ConsoleTextHelper::SetCursorPosition(TextStartPosition);
         std::cin.clear();
         std::cin.ignore();
     }
