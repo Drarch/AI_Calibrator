@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "MessageConsolePrinter.h"
-#include "ConsoleTextHelper.h"
+#include "Console/ConsoleTextHelper.h"
 
 class Game
 {

@@ -13,6 +13,7 @@
 				"/Fo:",
 				"${workspaceFolder}\\binaries\\obj\\",
 				"${workspaceFolder}\\AI_Calibrator_main.cpp",
+				"${workspaceFolder}\\source\\Console\\*.cpp",
 				"${workspaceFolder}\\source\\*.cpp"
 			],
 			"problemMatcher": [

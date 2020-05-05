@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "ConsoleTextHelper.h"
+#include "Console/ConsoleTextHelper.h"
 
 class MessageConsolePrinter
 {

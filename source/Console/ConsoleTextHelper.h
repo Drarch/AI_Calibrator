@@ -2,7 +2,7 @@
 
 #include <windows.h>
 
-#include "Consts/TextColor.h"
+#include "../Consts/TextColor.h"
 
 
 /* Standard error macro for reporting API errors */ 
