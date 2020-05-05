@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "MessageConsolePrinter.h"
 
 Game::Game(int _MaxLevel)
 {
@@ -11,12 +10,15 @@ Game::Game(int _MaxLevel)
 void Game::NewGame()
 {
     srand(time(NULL));
-    
+    Level = 1;
+
+    ConsoleTextHelper::ClearScreen();
     MessageConsolePrinter::PrintIntroduction();
 
     while (MaxLevel >= Level)
     {
         if (this->PlayRound()) this->NextLevel();
+        ConsoleTextHelper::ClearScreen();
         std::cin.clear();
         std::cin.ignore();
     }
@@ -26,8 +28,7 @@ void Game::NewGame()
 
 bool Game::PlayRound()
 {
-    std::cout << std::endl;
-    MessageConsolePrinter::PrintTutorial();
+    // std::cout << std::endl;
 
     // Declare grid variables
     int EnergyConsumption = rand() % (Level + 2) + Level;
@@ -37,8 +38,8 @@ bool Game::PlayRound()
     int EnergySum = EnergyConsumption + EnergySupply + EnergyStorage;
     int EnergyProduct = EnergyConsumption * EnergySupply * EnergyStorage;
     
-    // std::cout << "Debug: " << EnergyConsumption << " " << EnergySupply << " " << EnergyStorage << std::endl;
     MessageConsolePrinter::PrintGridInfo(Level, EnergySum, EnergyProduct);
+    MessageConsolePrinter::PrintTutorial();
 
     // Declare input variables
     int EnergyConsumptionInput = -1;

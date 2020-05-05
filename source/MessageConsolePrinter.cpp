@@ -29,7 +29,8 @@ void MessageConsolePrinter::PrintTutorial()
     ConsoleTextHelper::SetTextColor(Consts::TextColor::RED);
     std::cout <<"X X X";
     ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
-    std::cout << "' format.\n";
+    std::cout << "' format.";
+    std::cout << std::endl;
 }
 
 void MessageConsolePrinter::PrintGridInfo(int Level, int EnergySum, int EnergyProduct)

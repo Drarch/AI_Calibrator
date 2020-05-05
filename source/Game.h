@@ -3,6 +3,9 @@
 #include <ctime>
 #include <iostream>
 
+#include "MessageConsolePrinter.h"
+#include "ConsoleTextHelper.h"
+
 class Game
 {
 private:
