@@ -8,7 +8,6 @@ HANDLE ConsoleTextHelper::GetConsole()
 
 void ConsoleTextHelper::SetTextColor(Consts::TextColor TextColor)
 {
-    // HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(GetConsole(), TextColor);
 }
 

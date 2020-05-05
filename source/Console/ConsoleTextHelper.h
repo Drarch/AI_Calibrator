@@ -11,9 +11,9 @@
 class ConsoleTextHelper
 {
 private:
-    static HANDLE GetConsole();
 
 public:
+    static HANDLE GetConsole();
     static void SetTextColor(Consts::TextColor TextColor);
     static void ClearScreen();
 };
