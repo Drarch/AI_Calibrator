@@ -78,7 +78,7 @@ void Game::GetRoundInput(int GridInput[3])
     std::cout << "Input: ";
 
     WORD AllowedKeys[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        VK_NUMPAD0, VK_NUMPAD1, VK_NUMPAD2, VK_NUMPAD3, VK_NUMPAD4, VK_NUMPAD5, VK_NUMPAD6, VK_NUMPAD7, VK_NUMPAD8, VK_NUMPAD9}; //VK_BACK
+        VK_NUMPAD0, VK_NUMPAD1, VK_NUMPAD2, VK_NUMPAD3, VK_NUMPAD4, VK_NUMPAD5, VK_NUMPAD6, VK_NUMPAD7, VK_NUMPAD8, VK_NUMPAD9};
     WORD SeparatorKeys[] = {VK_SPACE, VK_TAB, VK_RETURN};
 
     std::string Input = "";
@@ -117,12 +117,16 @@ void Game::GetRoundInput(int GridInput[3])
                 Input += inrec.Event.KeyEvent.uChar.AsciiChar;
                 std::cout << inrec.Event.KeyEvent.uChar.AsciiChar;
             }
+            else if ( inrec.Event.KeyEvent.wVirtualKeyCode == VK_BACK )
+            {
+
+            }
             else if ( Contains(SeparatorKeys, inrec.Event.KeyEvent.wVirtualKeyCode) && Input != "" )
             {
                 GridInput[i] = std::stoi(Input);
                 Input.clear();
                 i++;
-                std::cout << inrec.Event.KeyEvent.uChar.AsciiChar;
+                std::cout << " ";
             }
         }
     }
