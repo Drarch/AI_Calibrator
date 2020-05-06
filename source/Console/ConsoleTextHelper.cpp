@@ -123,11 +123,12 @@ bool ConsoleTextHelper::GetEnterKey()
     || !GetConsoleMode( hConsole, &mode )
     || !SetConsoleMode( hConsole, 0 ))
     {
-        std::cout << "ConsoleTextHelper::GetAnyKey() - Mode Error: " << GetLastError();
+        std::cout << "ConsoleTextHelper::GetEnterKey() - Mode Error: " << GetLastError();
         system("pause");
         return false;
     }
 
+    //std::cin.clear();
     FlushConsoleInputBuffer( hConsole );
 
     /* Get a single key RELEASE */
@@ -135,11 +136,11 @@ bool ConsoleTextHelper::GetEnterKey()
     {
         if (!ReadConsoleInput( hConsole, &inrec, 1, &count ))
         {
-            std::cout << std::endl << "ConsoleTextHelper::GetAnyKey() - Read Error: " << GetLastError();
+            std::cout << std::endl << "ConsoleTextHelper::GetEnterKey() - Read Error: " << GetLastError();
             system("pause");
         }
     }
-    while (inrec.EventType != KEY_EVENT || inrec.Event.KeyEvent.wVirtualKeyCode != VK_RETURN);
+    while (inrec.EventType != KEY_EVENT || inrec.Event.KeyEvent.wVirtualKeyCode != VK_RETURN); //inrec.Event.KeyEvent.bKeyDown
 
     /* Restore the original console mode */
     SetConsoleMode( hConsole, mode );

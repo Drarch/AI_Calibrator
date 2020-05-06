@@ -18,7 +18,7 @@ void Game::NewGame()
     {
         ResetScreen();
         if (this->PlayRound()) this->NextLevel();
-        std::cin.clear(); std::cin.ignore();
+        // std::cin.clear(); std::cin.ignore();
     }
     
     MessageConsolePrinter::PrintEndgame();
@@ -67,9 +67,10 @@ bool Game::PlayRound()
     bool isProductCorrect = EnergyProduct == GuessProduct;
 
     MessageConsolePrinter::PrintGridResolution(isSumCorrect, isProductCorrect);
-    std::cout << "Press any key to continue";
+    std::cout << "Press any to continue";
     ConsoleTextHelper::GetAnyKey();
-    
+    // ConsoleTextHelper::GetEnterKey();
+
     return isSumCorrect && isProductCorrect;
 }
 
@@ -99,7 +100,12 @@ void Game::GetRoundInput(int GridInput[3])
         return;
     }
 
-    FlushConsoleInputBuffer( hConsoleIn );
+    if(!FlushConsoleInputBuffer( hConsoleIn ))
+    {
+        std::cout << "Game::GetRoundInput() - Flush Error: " << GetLastError();
+        system("pause");
+        return;
+    }
 
     /* Get input values */
     do
@@ -126,15 +132,15 @@ void Game::GetRoundInput(int GridInput[3])
                 GridInput[i] = std::stoi(Input);
                 Input.clear();
                 i++;
-                std::cout << " ";
+                if (i < 3) std::cout << " ";
             }
         }
     }
-    while (inrec.EventType != KEY_EVENT || i < 3);
+    while (inrec.EventType != KEY_EVENT || inrec.Event.KeyEvent.bKeyDown || i < 3);
 
     /* Restore the original console mode */
     SetConsoleMode( hConsoleIn, mode );
-
+    // std::cin.clear();
     std::cout << std::endl;
 }
 
