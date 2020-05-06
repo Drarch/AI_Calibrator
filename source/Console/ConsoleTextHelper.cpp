@@ -140,7 +140,7 @@ bool ConsoleTextHelper::GetEnterKey()
             system("pause");
         }
     }
-    while (inrec.EventType != KEY_EVENT || inrec.Event.KeyEvent.wVirtualKeyCode != VK_RETURN); //inrec.Event.KeyEvent.bKeyDown
+    while (inrec.EventType != KEY_EVENT || inrec.Event.KeyEvent.bKeyDown || inrec.Event.KeyEvent.wVirtualKeyCode != VK_RETURN); //inrec.Event.KeyEvent.bKeyDown
 
     /* Restore the original console mode */
     SetConsoleMode( hConsole, mode );
