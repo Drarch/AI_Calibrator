@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include <iostream>
 
 #include "Consts/TextColor.h"
 
@@ -11,10 +12,10 @@
 class ConsoleTextHelper
 {
 private:
-    static HANDLE GetConsoleInput();
 
 public:
     static HANDLE GetConsole();
+    static HANDLE GetConsoleInput();
     static void ClearScreen();
     static void SetCursorPosition(COORD Position);
     static void SetCursorPosition(short X, short Y);

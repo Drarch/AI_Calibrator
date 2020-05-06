@@ -1,7 +1,5 @@
 #include "ConsoleTextHelper.h"
 
-#include <iostream>
-
 HANDLE ConsoleTextHelper::GetConsole()
 {
     return GetStdHandle(STD_OUTPUT_HANDLE);
