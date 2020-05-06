@@ -76,11 +76,10 @@ bool Game::PlayRound()
 void Game::GetRoundInput(int GridInput[3])
 {
     std::cout << "Input: ";
-    // std::cin >> EnergyConsumptionInput >> EnergySupplyInput >> EnergyStorageInput;
 
     WORD AllowedKeys[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         VK_NUMPAD0, VK_NUMPAD1, VK_NUMPAD2, VK_NUMPAD3, VK_NUMPAD4, VK_NUMPAD5, VK_NUMPAD6, VK_NUMPAD7, VK_NUMPAD8, VK_NUMPAD9}; //VK_BACK
-    WORD SeparatorKeys[] = {VK_SPACE, VK_RETURN};
+    WORD SeparatorKeys[] = {VK_SPACE, VK_TAB, VK_RETURN};
 
     std::string Input = "";
 
@@ -133,9 +132,6 @@ void Game::GetRoundInput(int GridInput[3])
     SetConsoleMode( hConsoleIn, mode );
 
     std::cout << std::endl;
-    /* Debug */
-    // std::cout << "KeyCode: " << inrec.Event.KeyEvent.wVirtualKeyCode;
-    // system("pause");
 }
 
 void Game::DrawArt()
