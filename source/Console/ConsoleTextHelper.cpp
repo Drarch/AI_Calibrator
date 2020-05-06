@@ -1,8 +1,15 @@
 #include "ConsoleTextHelper.h"
 
+#include <iostream>
+
 HANDLE ConsoleTextHelper::GetConsole()
 {
     return GetStdHandle(STD_OUTPUT_HANDLE);
+}
+
+HANDLE ConsoleTextHelper::GetConsoleInput()
+{
+    return GetStdHandle(STD_INPUT_HANDLE);
 }
 
 
@@ -63,4 +70,85 @@ void ConsoleTextHelper::ClearScreen()
     bSuccess = SetConsoleCursorPosition( hConsole, coordScreen );
     // PERR( bSuccess, "SetConsoleCursorPosition" );
     return;
+}
+
+
+bool ConsoleTextHelper::GetAnyKey()
+{
+    DWORD        mode;
+    INPUT_RECORD inrec;
+    DWORD        count;
+    HANDLE hConsole = GetConsoleInput();
+
+    /* Check and set console mode for input */
+    if (hConsole == INVALID_HANDLE_VALUE
+    || !GetConsoleMode( hConsole, &mode )
+    || !SetConsoleMode( hConsole, 0 ))
+    {
+        std::cout << "ConsoleTextHelper::GetAnyKey() - Mode Error: " << GetLastError();
+        system("pause");
+        return false;
+    }
+
+    FlushConsoleInputBuffer( hConsole );
+
+    /* Get a single key RELEASE */
+    do
+    {
+        if (!ReadConsoleInput( hConsole, &inrec, 1, &count ))
+        {
+            std::cout << std::endl << "ConsoleTextHelper::GetAnyKey() - Read Error: " << GetLastError();
+            system("pause");
+        }
+    }
+    while (inrec.EventType != KEY_EVENT || inrec.Event.KeyEvent.bKeyDown);
+
+    /* Restore the original console mode */
+    SetConsoleMode( hConsole, mode );
+
+    /* Debug */
+    // std::cout << "KeyCode: " << inrec.Event.KeyEvent.wVirtualKeyCode;
+    // system("pause");
+
+    return true;
+}
+
+bool ConsoleTextHelper::GetEnterKey()
+{
+    DWORD        mode;
+    INPUT_RECORD inrec;
+    DWORD        count;
+    HANDLE hConsole = GetConsoleInput();
+
+    /* Check and set console mode for input */
+    if (hConsole == INVALID_HANDLE_VALUE
+    || !GetConsoleMode( hConsole, &mode )
+    || !SetConsoleMode( hConsole, 0 ))
+    {
+        std::cout << "ConsoleTextHelper::GetAnyKey() - Mode Error: " << GetLastError();
+        system("pause");
+        return false;
+    }
+
+    FlushConsoleInputBuffer( hConsole );
+
+    /* Get a single key RELEASE */
+    do
+    {
+        if (!ReadConsoleInput( hConsole, &inrec, 1, &count ))
+        {
+            std::cout << std::endl << "ConsoleTextHelper::GetAnyKey() - Read Error: " << GetLastError();
+            system("pause");
+        }
+    }
+    while (inrec.EventType != KEY_EVENT || inrec.Event.KeyEvent.wVirtualKeyCode != VK_RETURN);
+
+    /* Restore the original console mode */
+    SetConsoleMode( hConsole, mode );
+
+    /* Debug */
+    // std::cout << "KeyCode: " << inrec.Event.KeyEvent.wVirtualKeyCode;
+    // system("pause");
+
+    return true;
 }

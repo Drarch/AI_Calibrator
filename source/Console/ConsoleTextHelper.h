@@ -11,6 +11,7 @@
 class ConsoleTextHelper
 {
 private:
+    static HANDLE GetConsoleInput();
 
 public:
     static HANDLE GetConsole();
@@ -18,4 +19,7 @@ public:
     static void SetCursorPosition(COORD Position);
     static void SetCursorPosition(short X, short Y);
     static void SetTextColor(Consts::TextColor TextColor);
+
+    static bool GetAnyKey();
+    static bool GetEnterKey();
 };

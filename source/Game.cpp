@@ -12,24 +12,29 @@ void Game::NewGame()
     srand(time(NULL));
     Level = 1;
 
-    COORD TextStartPosition = {0, 17};
-
-    ConsoleTextHelper::ClearScreen();
-    DrawArt();
-    ConsoleTextHelper::SetCursorPosition(TextStartPosition);
-    MessageConsolePrinter::PrintIntroduction();
+    MainMenu();
 
     while (MaxLevel >= Level)
     {
+        ResetScreen();
         if (this->PlayRound()) this->NextLevel();
-        ConsoleTextHelper::ClearScreen();
-        DrawArt();
-        ConsoleTextHelper::SetCursorPosition(TextStartPosition);
         std::cin.clear();
         std::cin.ignore();
     }
     
     MessageConsolePrinter::PrintEndgame();
+}
+
+bool Game::MainMenu()
+{
+    ResetScreen();
+    MessageConsolePrinter::PrintIntroduction();
+    std::cout << std::endl;
+    std::cout << "Press Enter to Continue";
+
+    ConsoleTextHelper::GetEnterKey();
+
+    return true;
 }
 
 bool Game::PlayRound()
@@ -71,6 +76,13 @@ bool Game::PlayRound()
 void Game::DrawArt()
 {
     ArtPainter::DrawAI();
+}
+
+void Game::ResetScreen()
+{
+    ConsoleTextHelper::ClearScreen();
+    DrawArt();
+    ConsoleTextHelper::SetCursorPosition(TextStartPosition);
 }
 
 int Game::NextLevel()
