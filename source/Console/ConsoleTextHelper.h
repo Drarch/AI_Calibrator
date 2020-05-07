@@ -17,10 +17,13 @@ public:
     static HANDLE GetConsole();
     static HANDLE GetConsoleInput();
 
+
     static void ClearScreen();
-    static void ClearPartScreen();
+    static void ClearPartScreen(short StartLine, short Height);
+    static void ClearPartScreen(short StartLine);
     static void ClearBackspace();
 
+    static COORD GetConsoleSize();
     static COORD GetCursorPosition();
 
     static void SetCursorPosition(COORD Position);

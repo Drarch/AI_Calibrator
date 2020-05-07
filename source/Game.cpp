@@ -11,7 +11,8 @@ void Game::NewGame()
 {
     srand(time(NULL));
     Level = 1;
-
+    
+    DrawArt();
     MainMenu();
 
     while (MaxLevel >= Level)
@@ -29,7 +30,7 @@ bool Game::MainMenu()
     ResetScreen();
     MessageConsolePrinter::PrintIntroduction();
     std::cout << std::endl;
-    
+
     MessageConsolePrinter::PrintPressEnter();
     ConsoleTextHelper::GetEnterKey();
 
@@ -151,9 +152,9 @@ void Game::DrawArt()
 
 void Game::ResetScreen()
 {
-    ConsoleTextHelper::ClearScreen();
-    DrawArt();
-    ConsoleTextHelper::SetCursorPosition(TextStartPosition);
+    ConsoleTextHelper::ClearPartScreen(TextStartPosition.Y);
+    // DrawArt();
+    // ConsoleTextHelper::SetCursorPosition(TextStartPosition);
 }
 
 int Game::NextLevel()

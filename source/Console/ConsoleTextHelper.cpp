@@ -10,18 +10,23 @@ HANDLE ConsoleTextHelper::GetConsoleInput()
     return GetStdHandle(STD_INPUT_HANDLE);
 }
 
-
-void ConsoleTextHelper::SetTextColor(Consts::TextColor TextColor)
+COORD ConsoleTextHelper::GetConsoleSize()
 {
-    SetConsoleTextAttribute(GetConsole(), TextColor);
+    CONSOLE_SCREEN_BUFFER_INFO ConsoleBufferInfo;
+    if(GetConsoleScreenBufferInfo(GetConsole(), &ConsoleBufferInfo))
+    {
+        return ConsoleBufferInfo.dwSize;
+    }
+    else
+    {
+        return { 0, 0 };
+    }
 }
-
 
 COORD ConsoleTextHelper::GetCursorPosition()
 {
-    HANDLE hConsole = GetConsole();
     CONSOLE_SCREEN_BUFFER_INFO ConsoleBufferInfo;
-    if(GetConsoleScreenBufferInfo(hConsole, &ConsoleBufferInfo))
+    if(GetConsoleScreenBufferInfo(GetConsole(), &ConsoleBufferInfo))
     {
         return ConsoleBufferInfo.dwCursorPosition;
     }
@@ -68,13 +73,12 @@ bool ConsoleTextHelper::SetConsoleModeInput(HANDLE hConsoleIn, DWORD *mode)
 
 void ConsoleTextHelper::ClearScreen()
 {
-    COORD coordScreen = { 0, 0 };    /* here's where we'll home the
-                                        cursor */ 
+    COORD coordScreen = { 0, 0 };
+
     BOOL bSuccess;
     DWORD cCharsWritten;
-    CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */ 
-    DWORD dwConSize;                 /* number of character cells in
-                                        the current buffer */ 
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD dwConSize; 
     HANDLE hConsole = GetConsole();
 
 
@@ -106,6 +110,36 @@ void ConsoleTextHelper::ClearScreen()
     return;
 }
 
+void ConsoleTextHelper::ClearPartScreen(short StartLine, short Height)
+{
+    COORD coordScreen = { 0, StartLine };
+
+    DWORD cCharsWritten;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD dwConSize; 
+    HANDLE hConsole = GetConsole();
+
+    GetConsoleScreenBufferInfo( hConsole, &csbi );
+
+    dwConSize = csbi.dwSize.X * Height;
+
+    FillConsoleOutputCharacter( hConsole, (TCHAR) ' ', dwConSize, coordScreen, &cCharsWritten );
+    FillConsoleOutputAttribute( hConsole, csbi.wAttributes, dwConSize, coordScreen, &cCharsWritten );
+
+    SetConsoleCursorPosition( hConsole, coordScreen );
+}
+
+void ConsoleTextHelper::ClearPartScreen(short StartLine)
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    HANDLE hConsole = GetConsole();
+
+    GetConsoleScreenBufferInfo( hConsole, &csbi );
+
+    short Height = csbi.dwSize.Y - StartLine;
+
+    ClearPartScreen(StartLine, Height);
+}
 
 void ConsoleTextHelper::ClearBackspace()
 {
@@ -114,6 +148,13 @@ void ConsoleTextHelper::ClearBackspace()
     // COORD CursorPosition = ConsoleTextHelper::GetCursorPosition();
     WriteConsole(GetConsole(), back, std::size(back) , &count, NULL);
 }
+
+
+void ConsoleTextHelper::SetTextColor(Consts::TextColor TextColor)
+{
+    SetConsoleTextAttribute(GetConsole(), TextColor);
+}
+
 
 bool ConsoleTextHelper::GetAnyKey()
 {
