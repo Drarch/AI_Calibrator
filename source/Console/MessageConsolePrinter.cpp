@@ -78,3 +78,16 @@ void MessageConsolePrinter::PrintEndgame()
     std::cout << "Thanks to you, the AI works perfectly!\n";
     ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
 }
+
+
+void MessageConsolePrinter::PrintPressAnyKey()
+{
+    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
+    std::cout << "Press any key to continue";
+}
+
+void MessageConsolePrinter::PrintPressEnter()
+{
+    ConsoleTextHelper::SetTextColor(Consts::TextColor::WHITE);
+    std::cout << "Press Enter to Continue";
+}

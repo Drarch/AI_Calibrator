@@ -26,8 +26,9 @@ public:
     static void SetCursorPosition(COORD Position);
     static void SetCursorPosition(short X, short Y);
 
-    static void SetTextColor(Consts::TextColor TextColor);
+    static bool SetConsoleModeInput(HANDLE hConsoleIn, DWORD *mode);
 
+    static void SetTextColor(Consts::TextColor TextColor);
 
     static bool GetAnyKey();
     static bool GetEnterKey();

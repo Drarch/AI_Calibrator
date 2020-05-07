@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "Console/ConsoleTextHelper.h"
+#include "ConsoleTextHelper.h"
 
 class MessageConsolePrinter
 {
@@ -14,4 +14,7 @@ public:
     static void PrintGridInfo(int Level, int EnergySum, int EnergyProduct);
     static void PrintGridResolution(bool isSumCorrect, bool isProductCorrect);
     static void PrintEndgame();
+
+    static void PrintPressAnyKey();
+    static void PrintPressEnter();
 };

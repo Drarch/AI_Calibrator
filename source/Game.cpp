@@ -29,8 +29,8 @@ bool Game::MainMenu()
     ResetScreen();
     MessageConsolePrinter::PrintIntroduction();
     std::cout << std::endl;
-    std::cout << "Press Enter to Continue";
-
+    
+    MessageConsolePrinter::PrintPressEnter();
     ConsoleTextHelper::GetEnterKey();
 
     return true;
@@ -68,10 +68,9 @@ bool Game::PlayRound()
 
 
     MessageConsolePrinter::PrintGridResolution(isSumCorrect, isProductCorrect);
-    std::cout << "Press any to continue";
+    MessageConsolePrinter::PrintPressAnyKey();
     // std::cout << std::endl << "Debug: " << GridInput[0] << " " << GridInput[1] << " " << GridInput[2];
     ConsoleTextHelper::GetAnyKey();
-    // ConsoleTextHelper::GetEnterKey();
 
     return isSumCorrect && isProductCorrect;
 }
@@ -79,10 +78,6 @@ bool Game::PlayRound()
 void Game::GetRoundInput(int GridInput[3])
 {
     std::cout << "Input: ";
-
-    WORD AllowedKeys[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        VK_NUMPAD0, VK_NUMPAD1, VK_NUMPAD2, VK_NUMPAD3, VK_NUMPAD4, VK_NUMPAD5, VK_NUMPAD6, VK_NUMPAD7, VK_NUMPAD8, VK_NUMPAD9};
-    WORD SeparatorKeys[] = {VK_SPACE, VK_TAB, VK_RETURN};
 
     std::string Input = "";
 
@@ -93,20 +88,9 @@ void Game::GetRoundInput(int GridInput[3])
     HANDLE hConsoleIn = ConsoleTextHelper::GetConsoleInput();
 
     /* Check and set console mode for input */
-    if (hConsoleIn == INVALID_HANDLE_VALUE
-    || !GetConsoleMode( hConsoleIn, &mode )
-    || !SetConsoleMode( hConsoleIn, 0 ))
+    if ( !ConsoleTextHelper::SetConsoleModeInput( hConsoleIn, &mode) )
     {
-        std::cout << "Game::GetRoundInput() - Mode Error: " << GetLastError();
-        system("pause");
-        return;
-    }
-
-    if(!FlushConsoleInputBuffer( hConsoleIn ))
-    {
-        std::cout << "Game::GetRoundInput() - Flush Error: " << GetLastError();
-        system("pause");
-        return;
+        return ;
     }
 
     /* Get input values */
@@ -156,7 +140,7 @@ void Game::GetRoundInput(int GridInput[3])
 
     /* Restore the original console mode */
     SetConsoleMode( hConsoleIn, mode );
-    // std::cin.clear();
+
     std::cout << std::endl;
 }
 
