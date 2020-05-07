@@ -1,5 +1,50 @@
 #include "ConsoleMarker.h"
 
+
+void ConsoleMarker::DrawCharacter(COORD Position, TCHAR Character, Consts::TextColor Color)
+{
+    HANDLE hConsole = ConsoleTextHelper::GetConsole();
+    DWORD count;
+    WORD dColor = Color;
+    WriteConsoleOutputAttribute(hConsole, &dColor, 1, Position, &count);
+    WriteConsoleOutputCharacter(hConsole, &Character, 1, Position, &count);
+}
+
+void ConsoleMarker::DrawCharacter(short X, short Y, TCHAR Character, Consts::TextColor Color)
+{
+    COORD Position = { X, Y };
+    DrawCharacter(Position, Character, Color);
+}
+
+void ConsoleMarker::DrawTextLine(COORD Start, short Length, LineDirection Direction, Consts::TextColor Color)
+{
+    HANDLE hConsole = ConsoleTextHelper::GetConsole();
+    DWORD cCharsWritten;
+
+    switch(Direction)
+    {
+        case LineDirection::Horizontal:
+            FillConsoleOutputAttribute(hConsole, (WORD)Color, Length, Start, &cCharsWritten);
+            FillConsoleOutputCharacter(hConsole, (TCHAR)'-', Length, Start, &cCharsWritten);
+            break;
+        case LineDirection::Verical:
+            for (int i = 0; i < Length; i++)
+            {
+                Start.Y++;
+                FillConsoleOutputAttribute(hConsole, (WORD)Color, 1, Start, &cCharsWritten);
+                FillConsoleOutputCharacter(hConsole, (TCHAR)'|', 1, Start, &cCharsWritten);
+            }
+            break;
+    };
+}
+
+void ConsoleMarker::DrawTextLine(short StartX, short StartY, short Length, LineDirection Direction, Consts::TextColor Color)
+{
+    COORD Start = { StartX, StartY };
+    DrawTextLine(Start, Length, Direction, Color);
+}
+
+
 void ConsoleMarker::DrawRectangle(COORD LeftTop, short Width, short Height, Consts::TextColor Color)
 {
     FillRectangle(LeftTop, Width, Height, Color);

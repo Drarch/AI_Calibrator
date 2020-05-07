@@ -11,7 +11,7 @@ void Game::NewGame()
 {
     srand(time(NULL));
     Level = 1;
-    
+
     DrawArt();
     MainMenu();
 
@@ -147,7 +147,10 @@ void Game::GetRoundInput(int GridInput[3])
 
 void Game::DrawArt()
 {
+    ConsoleMarker::DrawTextLine(5, 5, 12, LineDirection::Horizontal);
+    ConsoleMarker::DrawTextLine(25, 5, 8, LineDirection::Verical);
     ArtPainter::DrawAI();
+    ArtPainter::DrawCell({5,5});
 }
 
 void Game::ResetScreen()
