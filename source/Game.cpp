@@ -69,7 +69,7 @@ bool Game::PlayRound()
 
     MessageConsolePrinter::PrintGridResolution(isSumCorrect, isProductCorrect);
     std::cout << "Press any to continue";
-    std::cout << std::endl << "Debug: " << GridInput[0] << " " << GridInput[1] << " " << GridInput[2];
+    // std::cout << std::endl << "Debug: " << GridInput[0] << " " << GridInput[1] << " " << GridInput[2];
     ConsoleTextHelper::GetAnyKey();
     // ConsoleTextHelper::GetEnterKey();
 
