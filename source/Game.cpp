@@ -66,8 +66,10 @@ bool Game::PlayRound()
     bool isSumCorrect = EnergySum == GuessSum;
     bool isProductCorrect = EnergyProduct == GuessProduct;
 
+
     MessageConsolePrinter::PrintGridResolution(isSumCorrect, isProductCorrect);
     std::cout << "Press any to continue";
+    std::cout << std::endl << "Debug: " << GridInput[0] << " " << GridInput[1] << " " << GridInput[2];
     ConsoleTextHelper::GetAnyKey();
     // ConsoleTextHelper::GetEnterKey();
 
@@ -125,7 +127,21 @@ void Game::GetRoundInput(int GridInput[3])
             }
             else if ( inrec.Event.KeyEvent.wVirtualKeyCode == VK_BACK )
             {
-
+                if(!Input.empty())
+                {
+                    Input.pop_back();
+                    ConsoleTextHelper::ClearBackspace();
+                }
+                else if(Input.empty() && i > 0)
+                {
+                    ConsoleTextHelper::ClearBackspace();
+                    i--;
+                    Input = std::to_string(GridInput[i]);
+                }
+                else
+                {
+                    // Do nothing
+                }
             }
             else if ( Contains(SeparatorKeys, inrec.Event.KeyEvent.wVirtualKeyCode) && Input != "" )
             {

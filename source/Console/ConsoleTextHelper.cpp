@@ -17,6 +17,20 @@ void ConsoleTextHelper::SetTextColor(Consts::TextColor TextColor)
 }
 
 
+COORD ConsoleTextHelper::GetCursorPosition()
+{
+    HANDLE hConsole = GetConsole();
+    CONSOLE_SCREEN_BUFFER_INFO ConsoleBufferInfo;
+    if(GetConsoleScreenBufferInfo(hConsole, &ConsoleBufferInfo))
+    {
+        return ConsoleBufferInfo.dwCursorPosition;
+    }
+    else
+    {
+        return { 0, 0 };
+    }
+}
+
 void ConsoleTextHelper::SetCursorPosition(COORD Position)
 {
     HANDLE hConsole = GetConsole();
@@ -70,6 +84,14 @@ void ConsoleTextHelper::ClearScreen()
     return;
 }
 
+
+void ConsoleTextHelper::ClearBackspace()
+{
+    DWORD count;
+    TCHAR back[] = { VK_BACK, ' ', VK_BACK };
+    // COORD CursorPosition = ConsoleTextHelper::GetCursorPosition();
+    WriteConsole(GetConsole(), back, std::size(back) , &count, NULL);
+}
 
 bool ConsoleTextHelper::GetAnyKey()
 {
