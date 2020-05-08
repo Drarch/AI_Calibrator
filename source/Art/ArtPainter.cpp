@@ -10,8 +10,3 @@ void ArtPainter::DrawCell(COORD Position)
     ConsoleMarker::DrawTextRectangle({Position.X-1, Position.Y-1}, 3, 3);
     ConsoleMarker::DrawCharacter(Position, 'X');
 }
-
-void DrawLine(COORD Start, COORD End, LineDirection Direction, Consts::TextColor Color)
-{
-    
-}

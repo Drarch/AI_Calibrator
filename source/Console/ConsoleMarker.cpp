@@ -27,12 +27,12 @@ void ConsoleMarker::DrawTextLine(COORD Start, short Length, LineDirection Direct
             FillConsoleOutputAttribute(hConsole, (WORD)Color, Length, Start, &cCharsWritten);
             FillConsoleOutputCharacter(hConsole, (TCHAR)'-', Length, Start, &cCharsWritten);
             break;
-        case LineDirection::Verical:
+        case LineDirection::Vertical:
             for (int i = 0; i < Length; i++)
             {
+                DrawCharacter(Start, '|', Color);
+                
                 Start.Y++;
-                FillConsoleOutputAttribute(hConsole, (WORD)Color, 1, Start, &cCharsWritten);
-                FillConsoleOutputCharacter(hConsole, (TCHAR)'|', 1, Start, &cCharsWritten);
             }
             break;
     };
@@ -42,6 +42,55 @@ void ConsoleMarker::DrawTextLine(short StartX, short StartY, short Length, LineD
 {
     COORD Start = { StartX, StartY };
     DrawTextLine(Start, Length, Direction, Color);
+}
+
+
+void ConsoleMarker::DrawTextElbowLine(COORD Start, COORD End, LineDirection Direction, Consts::TextColor Color)
+{
+    COORD Dim = { (SHORT)abs(Start.X - End.X) + 1, (SHORT)abs(Start.Y - End.Y) + 1 };
+    
+    // std::cout << "Debug: " << Dim.X << " " << Dim.Y;
+    if (Start.X > End.X) Start.X = End.X;
+    if (Start.Y > End.Y) Start.Y = End.Y;
+
+    if (Dim.X > 1 && Dim.Y == 1)
+    {
+
+        DrawTextLine(Start, Dim.X, LineDirection::Horizontal, Color);
+        return;
+    }
+    else if (Dim.X == 1 && Dim.Y > 1)
+    {
+
+        DrawTextLine(Start, Dim.Y, LineDirection::Vertical, Color);
+        return;
+    }
+    else if (Dim.X == 1 && Dim.Y == 1)
+    {
+        DrawCharacter(Start, '+', Color);
+        return;
+    }
+
+    switch(Direction)
+    {
+        case LineDirection::Horizontal:
+            DrawTextLine(Start, Dim.X, LineDirection::Horizontal, Color);
+            DrawTextLine({End.X, Start.Y}, Dim.Y, LineDirection::Vertical, Color);
+            DrawCharacter({End.X, Start.Y}, '+', Color);
+            break;
+        case LineDirection::Vertical:
+            DrawTextLine(Start, Dim.Y, LineDirection::Vertical, Color);
+            DrawTextLine({Start.X, End.Y}, Dim.X, LineDirection::Horizontal, Color);
+            DrawCharacter({Start.X, End.Y}, '+', Color);
+            break;
+    }
+}
+
+void ConsoleMarker::DrawTextElbowLine(short StartX, short StartY, short EndX, short EndY, LineDirection Direction, Consts::TextColor Color)
+{
+    COORD Start = { StartX, StartY };
+    COORD End = { EndX , EndY };
+    DrawTextElbowLine(Start, End, Direction, Color);
 }
 
 

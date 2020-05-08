@@ -6,7 +6,7 @@
 enum LineDirection
 {
     Horizontal = 0,
-    Verical
+    Vertical
 };
 
 class ConsoleMarker
@@ -19,6 +19,9 @@ public:
 
     static void DrawTextLine(COORD Start, short Length, LineDirection Direction, Consts::TextColor Color = Consts::TextColor::GREY);
     static void DrawTextLine(short StartX, short StartY, short Length, LineDirection Direction, Consts::TextColor Color = Consts::TextColor::GREY);
+
+    static void DrawTextElbowLine(COORD Start, COORD End, LineDirection Direction, Consts::TextColor Color = Consts::TextColor::GREY);
+    static void DrawTextElbowLine(short StartX, short StartY, short EndX, short EndY, LineDirection Direction, Consts::TextColor Color = Consts::TextColor::GREY);
 
     static void DrawRectangle(short LeftTopX, short LeftTopY, short Width, short Height, Consts::TextColor Color = Consts::TextColor::GREY);
     static void DrawRectangle(COORD LeftTop, short Width, short Height, Consts::TextColor Color = Consts::TextColor::GREY);

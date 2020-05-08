@@ -14,8 +14,9 @@ private:
 
 };
 
-
+/*
 typedef struct _DIM {
     short Width;
     short Height;
 } DIM;
+*/
