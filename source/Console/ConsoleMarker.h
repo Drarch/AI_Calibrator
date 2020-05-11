@@ -34,5 +34,8 @@ public:
 
     static void FillTextRectangle(short LeftTopX, short LeftTopY, short Width, short Height, Consts::TextColor Color = Consts::TextColor::GREY, TCHAR Character = (TCHAR)'-');
     static void FillTextRectangle(COORD LeftTop, short Width, short Height, Consts::TextColor Color = Consts::TextColor::GREY, TCHAR Character = (TCHAR)'-');
+
+
+    static void DebugTextElbowLine();
 };
 

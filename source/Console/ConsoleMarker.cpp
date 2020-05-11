@@ -31,7 +31,7 @@ void ConsoleMarker::DrawTextLine(COORD Start, short Length, LineDirection Direct
             for (int i = 0; i < Length; i++)
             {
                 DrawCharacter(Start, '|', Color);
-                
+
                 Start.Y++;
             }
             break;
@@ -48,21 +48,16 @@ void ConsoleMarker::DrawTextLine(short StartX, short StartY, short Length, LineD
 void ConsoleMarker::DrawTextElbowLine(COORD Start, COORD End, LineDirection Direction, Consts::TextColor Color)
 {
     COORD Dim = { (SHORT)abs(Start.X - End.X) + 1, (SHORT)abs(Start.Y - End.Y) + 1 };
-    
-    // std::cout << "Debug: " << Dim.X << " " << Dim.Y;
-    if (Start.X > End.X) Start.X = End.X;
-    if (Start.Y > End.Y) Start.Y = End.Y;
+    COORD Min = { min(Start.X, End.X), min(Start.Y, End.Y) };
 
     if (Dim.X > 1 && Dim.Y == 1)
     {
-
-        DrawTextLine(Start, Dim.X, LineDirection::Horizontal, Color);
+        DrawTextLine({Min.X, Start.Y}, Dim.X, LineDirection::Horizontal, Color);
         return;
     }
     else if (Dim.X == 1 && Dim.Y > 1)
     {
-
-        DrawTextLine(Start, Dim.Y, LineDirection::Vertical, Color);
+        DrawTextLine({Start.X, Min.Y}, Dim.Y, LineDirection::Vertical, Color);
         return;
     }
     else if (Dim.X == 1 && Dim.Y == 1)
@@ -70,20 +65,23 @@ void ConsoleMarker::DrawTextElbowLine(COORD Start, COORD End, LineDirection Dire
         DrawCharacter(Start, '+', Color);
         return;
     }
-
-    switch(Direction)
+    else
     {
-        case LineDirection::Horizontal:
-            DrawTextLine(Start, Dim.X, LineDirection::Horizontal, Color);
-            DrawTextLine({End.X, Start.Y}, Dim.Y, LineDirection::Vertical, Color);
-            DrawCharacter({End.X, Start.Y}, '+', Color);
-            break;
-        case LineDirection::Vertical:
-            DrawTextLine(Start, Dim.Y, LineDirection::Vertical, Color);
-            DrawTextLine({Start.X, End.Y}, Dim.X, LineDirection::Horizontal, Color);
-            DrawCharacter({Start.X, End.Y}, '+', Color);
-            break;
+        switch(Direction)
+        {
+            case LineDirection::Horizontal:
+                DrawTextLine({Min.X, Start.Y}, Dim.X, LineDirection::Horizontal, Color);
+                DrawTextLine({End.X, Min.Y}, Dim.Y, LineDirection::Vertical, Color);
+                DrawCharacter({End.X, Start.Y}, '+', Color);
+                break;
+            case LineDirection::Vertical:
+                DrawTextLine({Start.X, Min.Y}, Dim.Y, LineDirection::Vertical, Color);
+                DrawTextLine({Min.X, End.Y}, Dim.X, LineDirection::Horizontal, Color);
+                DrawCharacter({Start.X, End.Y}, '+', Color);
+                break;
+        }
     }
+    
 }
 
 void ConsoleMarker::DrawTextElbowLine(short StartX, short StartY, short EndX, short EndY, LineDirection Direction, Consts::TextColor Color)
@@ -192,4 +190,36 @@ void ConsoleMarker::FillTextRectangle(short LeftTopX, short LeftTopY, short Widt
     COORD LeftTop = { LeftTopX, LeftTopY };
 
     FillTextRectangle(LeftTop, Width, Height, Color, Character);
+}
+
+
+
+void ConsoleMarker::DebugTextElbowLine()
+{
+    /* Control - Lebgth */
+    ConsoleMarker::DrawTextLine(0, 0, 5, LineDirection::Horizontal);
+    ConsoleMarker::DrawTextLine(0, 0, 5, LineDirection::Vertical);
+
+    /* Side by side - Horizontal */
+    ConsoleMarker::DrawTextElbowLine(10, 3, 13, 6, LineDirection::Horizontal, Consts::TextColor::YELLOW); // LG PD ┐
+    ConsoleMarker::DrawTextElbowLine(14, 6, 17, 3, LineDirection::Horizontal, Consts::TextColor::RED);    // LD PG ┘ 
+    ConsoleMarker::DrawTextElbowLine(21, 6, 18, 3, LineDirection::Horizontal, Consts::TextColor::GREEN);  // PD LG └
+    ConsoleMarker::DrawTextElbowLine(25, 3, 22, 6, LineDirection::Horizontal, Consts::TextColor::BLUE);   // PG LD ┌
+
+    /* Side by side - Vertical */
+    ConsoleMarker::DrawTextElbowLine(13, 11, 10, 8, LineDirection::Vertical, Consts::TextColor::YELLOW);  // PD LG ┐
+    ConsoleMarker::DrawTextElbowLine(17, 8, 14, 11, LineDirection::Vertical, Consts::TextColor::RED);     // PG LD ┘
+    ConsoleMarker::DrawTextElbowLine(18, 8, 21, 11, LineDirection::Vertical, Consts::TextColor::GREEN);   // LG PD └
+    ConsoleMarker::DrawTextElbowLine(22, 11, 25, 8, LineDirection::Vertical, Consts::TextColor::BLUE);    // LD PG ┌
+    
+    /* Straigh Line */
+    ConsoleMarker::DrawTextElbowLine(10, 1, 35, 1, LineDirection::Vertical, Consts::TextColor::RED);
+    ConsoleMarker::DrawTextElbowLine(35, 2, 10, 2, LineDirection::Vertical, Consts::TextColor::LIGHT_RED);
+
+    ConsoleMarker::DrawTextElbowLine(8, 3, 8, 15, LineDirection::Horizontal, Consts::TextColor::GREEN);
+    ConsoleMarker::DrawTextElbowLine(9, 15, 9, 3, LineDirection::Horizontal, Consts::TextColor::LIGHT_GREEN);
+
+    /* Point */
+    ConsoleMarker::DrawTextElbowLine(8, 1, 8, 1, LineDirection::Horizontal, Consts::TextColor::BLUE);
+    ConsoleMarker::DrawTextElbowLine(9, 2, 9, 2, LineDirection::Vertical, Consts::TextColor::LIGHT_BLUE);
 }

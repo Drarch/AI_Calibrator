@@ -147,35 +147,16 @@ void Game::GetRoundInput(int GridInput[3])
 
 void Game::DrawArt()
 {
-    ConsoleMarker::DrawTextLine(0, 0, 5, LineDirection::Horizontal);
-    ConsoleMarker::DrawTextLine(0, 0, 5, LineDirection::Vertical);
+    // ConsoleMarker::DebugTextElbowLine();
 
-    // ConsoleMarker::DrawTextElbowLine(10, 3, 35, 15, LineDirection::Horizontal, Consts::TextColor::PURPLE);
-    // ConsoleMarker::DrawTextElbowLine(35, 15, 10, 3, LineDirection::Horizontal, Consts::TextColor::PURPLE);
- 
-    // ConsoleMarker::DrawTextElbowLine(10, 3, 35, 15, LineDirection::Vertical, Consts::TextColor::YELLOW);
-    // ConsoleMarker::DrawTextElbowLine(35, 15, 10, 3, LineDirection::Vertical, Consts::TextColor::YELLOW);
-    ConsoleMarker::DrawTextElbowLine(35, 3, 10, 15, LineDirection::Vertical, Consts::TextColor::YELLOW);
-
-    ConsoleMarker::DrawTextElbowLine(10, 1, 35, 1, LineDirection::Vertical, Consts::TextColor::RED);
-    ConsoleMarker::DrawTextElbowLine(35, 2, 10, 2, LineDirection::Vertical, Consts::TextColor::LIGHT_RED);
-
-    ConsoleMarker::DrawTextElbowLine(1, 3, 1, 15, LineDirection::Horizontal, Consts::TextColor::GREEN);
-    ConsoleMarker::DrawTextElbowLine(2, 15, 2, 3, LineDirection::Horizontal, Consts::TextColor::LIGHT_GREEN);
-
-    ConsoleMarker::DrawTextElbowLine(1, 1, 1, 1, LineDirection::Horizontal, Consts::TextColor::BLUE);
-    ConsoleMarker::DrawTextElbowLine(2, 2, 2, 2, LineDirection::Vertical, Consts::TextColor::LIGHT_BLUE);
-
-    // ArtPainter::DrawAI();
-    // ArtPainter::DrawCell({5,5});
+    ArtPainter::DrawAI();
+    ArtPainter::DrawCell({5,5});
 
 }
 
 void Game::ResetScreen()
 {
     ConsoleTextHelper::ClearPartScreen(TextStartPosition.Y);
-    // DrawArt();
-    // ConsoleTextHelper::SetCursorPosition(TextStartPosition);
 }
 
 int Game::NextLevel()
