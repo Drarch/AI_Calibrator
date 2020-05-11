@@ -151,7 +151,6 @@ void Game::DrawArt()
 
     ArtPainter::DrawAI();
     ArtPainter::DrawCell({5,5});
-
 }
 
 void Game::ResetScreen()

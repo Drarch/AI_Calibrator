@@ -53,17 +53,14 @@ void ConsoleMarker::DrawTextElbowLine(COORD Start, COORD End, LineDirection Dire
     if (Dim.X > 1 && Dim.Y == 1)
     {
         DrawTextLine({Min.X, Start.Y}, Dim.X, LineDirection::Horizontal, Color);
-        return;
     }
     else if (Dim.X == 1 && Dim.Y > 1)
     {
         DrawTextLine({Start.X, Min.Y}, Dim.Y, LineDirection::Vertical, Color);
-        return;
     }
     else if (Dim.X == 1 && Dim.Y == 1)
     {
         DrawCharacter(Start, '+', Color);
-        return;
     }
     else
     {
