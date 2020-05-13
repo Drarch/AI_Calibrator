@@ -7,9 +7,9 @@ class ArtPainter
 private:
     static const COORD AIPosition;
     static const COORD AISize;
-    static const COORD AILeftEyePosition;
+    static const COORD AILeftEyeOffset;
     static const SHORT AIEyeSeparation;
-    static const COORD AIMouthPosition;
+    static const COORD AIMouthOffset;
     static const SHORT AIMouthSize;
 
 public:

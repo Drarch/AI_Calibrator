@@ -148,6 +148,7 @@ void Game::GetRoundInput(int GridInput[3])
 void Game::DrawArt()
 {
     // ConsoleMarker::DebugTextElbowLine();
+    // ConsoleMarker::DebugTextSLine();
 
     ArtPainter::DrawAI();
     ArtPainter::DrawCell({5,5});

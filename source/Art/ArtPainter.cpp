@@ -2,9 +2,9 @@
 
 const COORD ArtPainter::AIPosition = {60, 3};
 const COORD ArtPainter::AISize = {15, 7};
-const COORD ArtPainter::AILeftEyePosition = {AIPosition.X + 4, AIPosition.Y + 1};
+const COORD ArtPainter::AILeftEyeOffset = {4, 1};
 const SHORT ArtPainter::AIEyeSeparation = 6;
-const COORD ArtPainter::AIMouthPosition = {AIPosition.X + 5, AIPosition.Y + 4};
+const COORD ArtPainter::AIMouthOffset = {5, 4};
 const SHORT ArtPainter::AIMouthSize = 3;
 
 
@@ -16,18 +16,18 @@ void ArtPainter::DrawAI()
 
 void ArtPainter::DrawAIFace() /* Make Strategy class structure for diffrent faces */
 {
-    COORD DrawPosition = AILeftEyePosition;
+    COORD DrawPosition = {AIPosition.X + AILeftEyeOffset.X, AIPosition.Y + AILeftEyeOffset.Y};
     /* Left eye */
     ConsoleMarker::DrawCharacter(DrawPosition, '_');
     ConsoleMarker::DrawCharacter({DrawPosition.X, DrawPosition.Y+1}, 'O');
 
     /* Right eye */
-    DrawPosition = {AILeftEyePosition.X + AIEyeSeparation, AILeftEyePosition.Y};
+    DrawPosition = {DrawPosition.X + AIEyeSeparation, DrawPosition.Y};
     ConsoleMarker::DrawCharacter(DrawPosition, '_');
     ConsoleMarker::DrawCharacter({DrawPosition.X, DrawPosition.Y+1}, 'O');
 
     /* Mouth */
-    DrawPosition = AIMouthPosition;
+    DrawPosition = {AIPosition.X + AIMouthOffset.X, AIPosition.Y + AIMouthOffset.Y};;
     ConsoleMarker::DrawTextLine(DrawPosition, AIMouthSize, LineDirection::Horizontal);
     ConsoleMarker::DrawCharacter(DrawPosition, '\\');
 }
