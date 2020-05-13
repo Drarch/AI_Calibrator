@@ -210,11 +210,11 @@ void ConsoleMarker::DebugTextElbowLine()
     ConsoleMarker::DrawTextElbowLine(22, 11, 25, 8, LineDirection::Vertical, Consts::TextColor::BLUE);    // LD PG ┌
     
     /* Straigh Line */
-    ConsoleMarker::DrawTextElbowLine(10, 1, 35, 1, LineDirection::Vertical, Consts::TextColor::RED);
-    ConsoleMarker::DrawTextElbowLine(35, 2, 10, 2, LineDirection::Vertical, Consts::TextColor::LIGHT_RED);
+    ConsoleMarker::DrawTextElbowLine(10, 1, 25, 1, LineDirection::Vertical, Consts::TextColor::RED);
+    ConsoleMarker::DrawTextElbowLine(25, 2, 10, 2, LineDirection::Vertical, Consts::TextColor::LIGHT_RED);
 
-    ConsoleMarker::DrawTextElbowLine(8, 3, 8, 15, LineDirection::Horizontal, Consts::TextColor::GREEN);
-    ConsoleMarker::DrawTextElbowLine(9, 15, 9, 3, LineDirection::Horizontal, Consts::TextColor::LIGHT_GREEN);
+    ConsoleMarker::DrawTextElbowLine(8, 3, 8, 11, LineDirection::Horizontal, Consts::TextColor::GREEN);
+    ConsoleMarker::DrawTextElbowLine(9, 11, 9, 3, LineDirection::Horizontal, Consts::TextColor::LIGHT_GREEN);
 
     /* Point */
     ConsoleMarker::DrawTextElbowLine(8, 1, 8, 1, LineDirection::Horizontal, Consts::TextColor::BLUE);
